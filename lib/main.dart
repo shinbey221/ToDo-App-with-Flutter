@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (bool value) async {
                     await client.mutate(
                       MutationOptions(
-                        document: changeCompletedMutation(
+                        document: updateCompletedMutation(
                             result, index),
                       ),
                     );

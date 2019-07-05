@@ -16,13 +16,14 @@ class GraphQlObject {
 
 GraphQlObject graphQlObject = new GraphQlObject();
 
-String changeCompletedMutation(result, index) {
+String updateCompletedMutation(result, index) {
   return (
       """mutation ToggleTask{
-         update_todo(where: {
-          id: {_eq: ${result.data["todo"][index]["id"]}}},
-          _set: {isCompleted: ${!result.data["todo"][index]["isCompleted"]}}) {
-             returning {isCompleted } }
+           update_todo(where: {
+            id: {_eq: ${result.data["todo"][index]["id"]}}},
+            _set: {isCompleted: ${!result.data["todo"][index]["isCompleted"]}}) {
+               returning {isCompleted } 
+           }
       }"""
   );
 }
@@ -30,9 +31,9 @@ String changeCompletedMutation(result, index) {
 String deleteTaskMutation(result, index) {
   return (
       """mutation DeleteTask{       
-              delete_todo(
-                 where: {id: {_eq: ${result.data["todo"][index]["id"]}}}
-              ) { returning {id} }
+            delete_todo(
+               where: {id: {_eq: ${result.data["todo"][index]["id"]}}}
+            ) { returning {id} }
       }"""
   );
 }
@@ -42,11 +43,11 @@ String addTaskMutation(title, content) {
   print(content);
   return (
       """mutation AddTask{
-              insert_todo(objects: {content: "$content", isCompleted: false, title: "$title"}) {
-                returning {
-                  id
-                }
+            insert_todo(objects: {content: "$content", isCompleted: false, title: "$title"}) {
+              returning {
+                id
               }
+            }
       }"""
   );
 }
@@ -54,12 +55,12 @@ String addTaskMutation(title, content) {
 String fetchQuery() {
   return (
       """query TodoGet{
-               todo {
-                  title
-                  content
-                  isCompleted
-                  id
-                  }
+           todo {
+              title
+              content
+              isCompleted
+              id
+           }
       } """
   );
 }
